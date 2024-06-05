@@ -13,12 +13,12 @@ struct Plano {
     
     
     // Se inicializa el plano con una lista de aviones y calcula su tamaño máximo en columnas y filas.
-    init(aviones: [Avion]) {
+    init(aviones: [Avion], colisiones: Set<Colision>) {
         self.avionesOriginales = aviones
         self.aviones = aviones
         self.maxColumnas = 0
         self.maxFilas = 0
-        self.colisiones = Set<Colision>()
+        self.colisiones = colisiones
         self.maxColumnas = calcularMaxColumnas(aviones: aviones)
         self.maxFilas = calcularMaxFilas(aviones: aviones)
     }
@@ -56,7 +56,7 @@ struct Plano {
     }
     
     //Calcula el número de coaliciones entre los aviones.
-    var numCoaliciones: Int {
+    var numColisiones: Int {
         return colisiones.count
     }
 
@@ -73,42 +73,14 @@ struct Plano {
     }
     
     //Avanza un movimiento en el juego y devuelve el plano actualizado.
-    mutating func next() -> Self {
-        numMovimientos += 1
-        aviones = Analizador.next(numPaso: numMovimientos, aviones: aviones)
-        calcularCoaliciones()
-        return self
+    mutating func next(numMovimientos: Int) -> Self {
+        return Analizador.next(numPaso: numMovimientos, aviones: aviones)
     }
     
     //Retrocede un movimiento en el juego y devuelve el plano actualizado.
-    mutating func back() -> Self {
+    mutating func back(numMovimientos: Int) -> Self {
         guard numMovimientos > 0 else { return self } // Verifica que aún haya movimientos para retroceder
-        aviones = Analizador.back(numPaso: numMovimientos, aviones: aviones)
-        numMovimientos -= 1
-        return self
-    }
-    
-    //Método para calcular el número de coaliciones entre aviones.
-    mutating func calcularCoaliciones() {
-        //Diccionario para contar las posiciones de los aviones.
-        var posiciones = [String: Int]()
-        
-        var colisiones = Set<Colision>()
-        //Itera sobre cada avión y cuenta cuántos aviones hay en cada posición.
-        for avion in aviones {
-            let key = "\(avion.x)|\(avion.y)"
-            posiciones[key, default: 0] += 1
-        }
-        
-        // Cuenta cuántas posiciones tienen más de un avión y retorna ese número.
-        for colision in posiciones {
-            if colision.value > 1 {
-                let x = colision.key.split(separator: "|")[0]
-                let y = colision.key.split(separator: "|")[1]
-                colisiones.insert(Colision(x: Int(x)!, y: Int(y)!))
-            }
-        }
-        self.colisiones = colisiones
+        return Analizador.back(numPaso: numMovimientos, aviones: aviones)
     }
 
 }

@@ -5,10 +5,17 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     @IBOutlet weak var collection: UICollectionView!
     
     let reuseIdentifier = "miCelda"
-    // Seleccionar la planificacion de ruta de la aerolinea de su preferencia
     
+    // Seleccionar la planificacion de ruta de la aerolinea de su preferencia
     var planificador = Planificador(aviones: Aeromexico.aviones)
-//    var planificador = Planificador(aviones: AmericanAirlines.aviones)
+    var columnas: Int = 0
+    var filas: Int = 0
+
+    override func viewDidLoad() {
+        
+        columnas = planificador.plano.columnas
+        filas = planificador.plano.filas
+    }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(
@@ -29,11 +36,11 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return planificador.plano.columnas
+        return columnas
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return planificador.plano.filas
+        return filas
     }
     
     //Variable que contabiliza los movimientos
@@ -54,6 +61,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         movimientos.text = "Movimientos: \(planificador.plano.numMovimientos)"
         actualizarCoaliciones()
         collection.reloadData()
+        
     }
     
     @IBAction func tapReset(_ sender: Any) {
@@ -67,7 +75,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     @IBOutlet weak var coaliciones: UILabel!
     
     private func actualizarCoaliciones() {
-        coaliciones.text = "Colisiones: \(planificador.plano.numCoaliciones)"
+        coaliciones.text = "Colisiones: \(planificador.numColisiones)"
     }
 }
 

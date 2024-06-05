@@ -3,13 +3,10 @@ import Foundation
 class Analizador {
     
     //Diccionario para almacenar la memoria de los estados de los aviones.
-    static var memoria = [Int: [Avion]]()
-    
-    //Diccionario para almacenar el número de coaliciones.
-    static var coalicionesPorPaso = [Int: Set<Colision>]()
+    static var memoria = [Int: Plano]()
     
     //Método para avanzar al siguiente movimiento y actualizar la posición de los aviones.
-    public static func next(numPaso: Int, aviones: [Avion]) -> [Avion] {
+    public static func next(numPaso: Int, aviones: [Avion]) -> Plano {
         //Verifica si el estado para el movimiento actual ya está en memoria.
         if let existe = Analizador.memoria[numPaso] {
             //Si existe lo retorna.
@@ -37,19 +34,19 @@ class Analizador {
                 //Agrega el avión actualizado a la lista temporal.
                 temporal.append(av)
             }
+            let colisiones = calcularCoaliciones(aviones: temporal)
+            let plano = Plano(aviones: temporal, colisiones: colisiones)
             //Almacena el nuevo estado de los aviones en memoria.
-            Analizador.memoria[numPaso] = temporal
+            Analizador.memoria[numPaso] = plano
             //Retorna la lista de aviones actualizada.
-            return temporal
+            return plano
         }
     }
     
     //Método para avanzar al retroceder movimiento y actualizar la posición de los aviones.
-    public static func back(numPaso: Int, aviones: [Avion]) -> [Avion] {
+    public static func back(numPaso: Int, aviones: [Avion]) -> Plano {
         //Si el movimiento es 0, retorna una lista vacía.
-        if numPaso == 0 {
-            return []
-        } else if let existe = Analizador.memoria[numPaso - 1] {
+        if let existe = Analizador.memoria[numPaso - 1] {
             //Si el estado del movimiento anterior está en memoria lo retorna.
             return existe
         } else {
@@ -75,12 +72,41 @@ class Analizador {
                 //Agrega el avión actualizado a la lista temporal.
                 temporal.append(av)
             }
+            let colisiones = calcularCoaliciones(aviones: temporal)
+            let plano = Plano(aviones: temporal, colisiones: colisiones)
             //Almacena el nuevo estado de los aviones en memoria para el movimiento anterior.
-            Analizador.memoria[numPaso - 1] = temporal
-            //Calcula y almacena el número de coaliciones para el nuevo estado para el movimiento anterior.
+            Analizador.memoria[numPaso - 1] = plano
             //Retorna la lista de aviones actualizada.
-            return temporal
+            return plano
         }
+    }
+    
+    //Método para calcular el número de coaliciones entre aviones.
+    public static func calcularCoaliciones(aviones: [Avion]) -> Set<Colision>{
+        //Diccionario para contar las posiciones de los aviones.
+        
+        var posiciones = [String: Int]()
+        
+        var colisiones = Set<Colision>()
+        //Itera sobre cada avión y cuenta cuántos aviones hay en cada posición.
+        for avion in aviones {
+            let key = "\(avion.x)|\(avion.y)"
+            posiciones[key, default: 0] += 1
+        }
+        
+        // Cuenta cuántas posiciones tienen más de un avión y retorna ese número.
+        for colision in posiciones {
+            if colision.value > 1 {
+                let x = colision.key.split(separator: "|")[0]
+                let y = colision.key.split(separator: "|")[1]
+                colisiones.insert(Colision(x: Int(x)!, y: Int(y)!))
+            }
+        }
+        return colisiones
+    }
+    
+    public static func flush(){
+        memoria.removeAll()
     }
         
 }
