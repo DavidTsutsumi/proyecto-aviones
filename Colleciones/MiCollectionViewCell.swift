@@ -45,5 +45,8 @@ class MiCollectionViewCell: UICollectionViewCell {
     func none(){
         imagen.image = nil
     }
+    
+    func colision() {
+        imagen.image =  UIImage(named: "colision")
+    }
 }
-

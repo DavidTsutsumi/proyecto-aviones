@@ -6,7 +6,7 @@ class Analizador {
     static var memoria = [Int: [Avion]]()
     
     //Diccionario para almacenar el número de coaliciones.
-    static var coalicionesPorPaso = [Int: Int]()
+    static var coalicionesPorPaso = [Int: Set<Colision>]()
     
     //Método para avanzar al siguiente movimiento y actualizar la posición de los aviones.
     public static func next(numPaso: Int, aviones: [Avion]) -> [Avion] {
@@ -39,8 +39,6 @@ class Analizador {
             }
             //Almacena el nuevo estado de los aviones en memoria.
             Analizador.memoria[numPaso] = temporal
-            //Calcula y almacena el número de coaliciones para el nuevo estado.
-            Analizador.coalicionesPorPaso[numPaso] = calcularCoaliciones(aviones: temporal)
             //Retorna la lista de aviones actualizada.
             return temporal
         }
@@ -80,22 +78,9 @@ class Analizador {
             //Almacena el nuevo estado de los aviones en memoria para el movimiento anterior.
             Analizador.memoria[numPaso - 1] = temporal
             //Calcula y almacena el número de coaliciones para el nuevo estado para el movimiento anterior.
-            Analizador.coalicionesPorPaso[numPaso - 1] = calcularCoaliciones(aviones: temporal)
             //Retorna la lista de aviones actualizada.
             return temporal
         }
     }
-    
-    //Método para calcular el número de coaliciones entre aviones.
-    public static func calcularCoaliciones(aviones: [Avion]) -> Int {
-        //Diccionario para contar las posiciones de los aviones.
-        var posiciones = [String: Int]()
-        //Itera sobre cada avión y cuenta cuántos aviones hay en cada posición.
-        for avion in aviones {
-            let key = "\(avion.x),\(avion.y)"
-            posiciones[key, default: 0] += 1
-        }
-        // Cuenta cuántas posiciones tienen más de un avión (coaliciones) y retorna ese número.
-        return posiciones.values.filter { $0 > 1 }.count
-    }
+        
 }

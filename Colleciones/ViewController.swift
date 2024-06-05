@@ -21,6 +21,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         } else {
             cell.none()
         }
+        if let _ = planificador.plano.getColision(row: indexPath.row, section: indexPath.section) {
+            cell.colision()
+        }
         cell.style()
         return cell
     }
@@ -49,7 +52,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
         planificador.next()
         movimientos.text = "Movimientos: \(planificador.plano.numMovimientos)"
-        //coaliciones.text = "Coaliciones: \(planificador.plano.numCoaliciones)"
         actualizarCoaliciones()
         collection.reloadData()
     }
@@ -57,7 +59,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     @IBAction func tapReset(_ sender: Any) {
         planificador.reset()
         movimientos.text = "Movimientos: \(planificador.plano.numMovimientos)"
-        //coaliciones.text = "Coaliciones: \(planificador.plano.numCoaliciones)"
         actualizarCoaliciones()
         collection.reloadData()
     }
@@ -66,13 +67,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     @IBOutlet weak var coaliciones: UILabel!
     
     private func actualizarCoaliciones() {
-            var textoCoaliciones = "Coaliciones totales: \(planificador.totalCoaliciones)\n"
-            for (turno, coaliciones) in planificador.coalicionesPorTurno.sorted(by: { $0.key < $1.key }) {
-                textoCoaliciones += "Turno \(turno): \(coaliciones)\n"
-            }
-            coaliciones.text = textoCoaliciones
-        }
-    
+        coaliciones.text = "Colisiones: \(planificador.plano.numCoaliciones)"
+    }
 }
 
 extension ViewController: UICollectionViewDelegateFlowLayout {

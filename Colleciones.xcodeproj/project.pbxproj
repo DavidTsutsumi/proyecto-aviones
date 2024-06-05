@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A20FB65E2BE544030092F118 /* Analizador.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20FB65D2BE544030092F118 /* Analizador.swift */; };
+		C2F07FDE2C10C0FE00504708 /* Colision.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2F07FDD2C10C0FE00504708 /* Colision.swift */; };
 		D317A94E2BD228E400C04D71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D317A94D2BD228E400C04D71 /* AppDelegate.swift */; };
 		D317A9502BD228E400C04D71 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D317A94F2BD228E400C04D71 /* SceneDelegate.swift */; };
 		D317A9522BD228E400C04D71 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D317A9512BD228E400C04D71 /* ViewController.swift */; };
@@ -25,6 +26,7 @@
 
 /* Begin PBXFileReference section */
 		A20FB65D2BE544030092F118 /* Analizador.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Analizador.swift; sourceTree = "<group>"; };
+		C2F07FDD2C10C0FE00504708 /* Colision.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colision.swift; sourceTree = "<group>"; };
 		D317A94A2BD228E400C04D71 /* Colleciones.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Colleciones.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D317A94D2BD228E400C04D71 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D317A94F2BD228E400C04D71 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -87,6 +89,7 @@
 				D317A9582BD228E600C04D71 /* LaunchScreen.storyboard */,
 				D317A95B2BD228E600C04D71 /* Info.plist */,
 				D317A9562BD228E600C04D71 /* Assets.xcassets */,
+				C2F07FDD2C10C0FE00504708 /* Colision.swift */,
 			);
 			path = Colleciones;
 			sourceTree = "<group>";
@@ -163,6 +166,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D317A96A2BD23DE400C04D71 /* Plano.swift in Sources */,
+				C2F07FDE2C10C0FE00504708 /* Colision.swift in Sources */,
 				D317A9662BD239B900C04D71 /* Direccion.swift in Sources */,
 				D317A96E2BD248BA00C04D71 /* Aeromexico.swift in Sources */,
 				D317A9522BD228E400C04D71 /* ViewController.swift in Sources */,
