@@ -1,9 +1,3 @@
-//
-//  ViewController.swift
-//  Colleciones
-//
-//  Created by Cristian Cardoso on 18/04/24.
-//  Modified by David Tsutsumi
 
 import UIKit
 class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {

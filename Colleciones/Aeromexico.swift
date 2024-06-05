@@ -1,16 +1,12 @@
-//
-//  Aeromexico.swift
-//  Colleciones
-//
-//  Created by Cristian Cardoso on 18/04/24.
-//
 
 import Foundation
 
+//Se define una estructura que contiene los aviones de Aeromexico.
 struct Aeromexico {
     
     private init() {    }
-
+    
+    // Se define una lista de aviones con sus coordenadas y direcciones.
     static let aviones = [
         Avion(x: 0, y: 0, direccion: .east),
         Avion(x: 0, y: 1, direccion: .east),
@@ -24,7 +20,5 @@ struct Aeromexico {
         Avion(x: 14, y: 14, direccion: .north),
         //Avion(x: 30, y: 30, direccion: .north)
    
-
-
     ]
 }

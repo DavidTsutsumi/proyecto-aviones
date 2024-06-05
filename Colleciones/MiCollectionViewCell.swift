@@ -1,10 +1,3 @@
-//
-//  MiCollectionViewCell.swift
-//  Colleciones
-//
-//  Created by Cristian Cardoso on 18/04/24.
-//
-
 
 import UIKit
 class MiCollectionViewCell: UICollectionViewCell {
@@ -16,6 +9,8 @@ class MiCollectionViewCell: UICollectionViewCell {
         layer.borderWidth = 2.0
     }
     
+    
+    //Configura la dirección de la imagen según la dirección del avión.
     func direccion(avion: Avion){
         switch avion.direccion {
         case .north:
@@ -29,6 +24,7 @@ class MiCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    //Asigna la imagen correspondiente a cada una de las direcciones.
     private func north() {
         imagen.image = UIImage(named: "north")
     }
@@ -45,6 +41,7 @@ class MiCollectionViewCell: UICollectionViewCell {
         imagen.image = UIImage(named: "west")
     }
     
+    //Elimina cualquier imagen de la celda.
     func none(){
         imagen.image = nil
     }
