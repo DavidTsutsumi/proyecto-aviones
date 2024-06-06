@@ -64,6 +64,7 @@ struct Planificador {
         plano = Analizador.flush()
         //Agregue esto para que se reiniciaran los valores
         numMovimientos = 0
+        colisiones = [:]
     }
 }
 
