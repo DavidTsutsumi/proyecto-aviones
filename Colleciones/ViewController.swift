@@ -15,6 +15,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
         columnas = planificador.plano.columnas
         filas = planificador.plano.filas
+        movimientos.text = "Movimientos: \(planificador.numMovimientos)"
+        coaliciones.text = "Colisiones: \(planificador.numColisiones)"
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -50,7 +52,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
         planificador.back()
         movimientos.text = "Movimientos: \(planificador.numMovimientos)"
-        actualizarCoaliciones()
+        coaliciones.text = "Colisiones: \(planificador.numColisiones)"
         collection.reloadData()
     }
     
@@ -58,7 +60,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
         planificador.next()
         movimientos.text = "Movimientos: \(planificador.numMovimientos)"
-        actualizarCoaliciones()
+        coaliciones.text = "Colisiones: \(planificador.numColisiones)"
         collection.reloadData()
         
     }
@@ -66,16 +68,14 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     @IBAction func tapReset(_ sender: Any) {
         planificador.reset()
         movimientos.text = "Movimientos: \(planificador.numMovimientos)"
-        actualizarCoaliciones()
+        coaliciones.text = "Colisiones: \(planificador.numColisiones)"
         collection.reloadData()
     }
     
     @IBOutlet weak var movimientos: UILabel!
     @IBOutlet weak var coaliciones: UILabel!
     
-    private func actualizarCoaliciones() {
-        coaliciones.text = "Colisiones: \(planificador.numColisiones)"
-    }
+
 }
 
 extension ViewController: UICollectionViewDelegateFlowLayout {

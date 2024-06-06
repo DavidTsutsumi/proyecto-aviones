@@ -79,7 +79,6 @@ struct Plano {
     
     //Retrocede un movimiento en el juego y devuelve el plano actualizado.
     mutating func back(numMovimientos: Int) -> Self {
-        guard numMovimientos > 0 else { return self } // Verifica que aún haya movimientos para retroceder
         return Analizador.back(numPaso: numMovimientos, aviones: aviones)
     }
 

@@ -4,21 +4,25 @@ import Foundation
 struct Planificador {
     
     var plano: Plano //Instancia de la estructura Plano
-    var numMovimientos: Int //Contador de movimientos realizados.
-    var numColisiones: Int
-    
+    var numMovimientos: Int = 0 //Contador de movimientos realizados.
+    var numColisiones: Int { //Contador de colisiones realizados.
+        var num = 0
+        for valor in colisiones.values {
+            num += valor
+        }
+        return num
+    }
+    //Guardar paso con el número de colisiones en ese paso.
+    var colisiones: [Int: Int] = [:]
+
     //Inicializador que recibe una lista de aviones.
     init(aviones: [Avion]) {
-        plano = Plano(aviones: aviones, colisiones: Set<Colision>()) //Inicializa el plano con los aviones.
-        numMovimientos = 0 //Inicializa el contador de movimientos a 0.
-        numColisiones = 0
+        plano = Analizador.initialize(aviones: aviones)
     }
     
     
     //Método que avanza el estado del plano al siguiente movimiento.
     mutating func next() {
-
-        numMovimientos += 1
         
         //Crea un nuevo arreglo para almacenar los aviones que no están involucrados en una colisión.
         var newAviones = [Avion]()
@@ -35,35 +39,30 @@ struct Planificador {
         plano.aviones = newAviones
         
         //Actualiza el estado del plano al siguiente movimiento
+        numMovimientos += 1
         plano = plano.next(numMovimientos: numMovimientos)
+        colisiones[numMovimientos] = plano.numColisiones
         
         //Actualiza el contador de colisiones sumando el número de colisiones en el nuevo estado del plano
-        numColisiones += plano.numColisiones
         
         //Recalcula el tamaño máximo de columnas y filas del plano actualizado
         plano.maxColumnas = plano.calcularMaxColumnas(aviones: plano.aviones)
         plano.maxFilas = plano.calcularMaxFilas(aviones: plano.aviones)
     }
-
-
-
     
     //Método que retrocede el estado del plano al movimiento anterior.
     mutating func back() {
+        //Habia puesto una condición que si la posición es igual a 1 haga un reset
         guard numMovimientos > 0 else { return }
+        colisiones[numMovimientos] = 0
         numMovimientos -= 1
         plano = plano.back(numMovimientos: numMovimientos)
-        numColisiones -= plano.numColisiones
     }
     
     //Método que reinicia el estado del plano al inicial.
     mutating func reset() {
-        numMovimientos = 0
-        Analizador.flush()
-        plano = Plano(aviones: Aeromexico.aviones, colisiones: Set<Colision>())
-        
+        plano = Analizador.flush()
         //Agregue esto para que se reiniciaran los valores
-        numColisiones = 0
         numMovimientos = 0
     }
 }

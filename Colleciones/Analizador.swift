@@ -5,6 +5,13 @@ class Analizador {
     //Diccionario para almacenar la memoria de los estados de los aviones.
     static var memoria = [Int: Plano]()
     
+    public static func initialize(aviones: [Avion]) -> Plano {
+        let plano = Plano(aviones: aviones, colisiones: Set<Colision>())
+        memoria[0] = plano
+        return plano
+        
+    }
+    
     //Método para avanzar al siguiente movimiento y actualizar la posición de los aviones.
     public static func next(numPaso: Int, aviones: [Avion]) -> Plano {
         //Verifica si el estado para el movimiento actual ya está en memoria.
@@ -46,7 +53,7 @@ class Analizador {
     //Método para avanzar al retroceder movimiento y actualizar la posición de los aviones.
     public static func back(numPaso: Int, aviones: [Avion]) -> Plano {
         //Si el movimiento es 0, retorna una lista vacía.
-        if let existe = Analizador.memoria[numPaso - 1] {
+        if let existe = Analizador.memoria[numPaso] {
             //Si el estado del movimiento anterior está en memoria lo retorna.
             return existe
         } else {
@@ -75,7 +82,7 @@ class Analizador {
             let colisiones = calcularCoaliciones(aviones: temporal)
             let plano = Plano(aviones: temporal, colisiones: colisiones)
             //Almacena el nuevo estado de los aviones en memoria para el movimiento anterior.
-            Analizador.memoria[numPaso - 1] = plano
+            Analizador.memoria[numPaso] = plano
             //Retorna la lista de aviones actualizada.
             return plano
         }
@@ -105,8 +112,11 @@ class Analizador {
         return colisiones
     }
     
-    public static func flush(){
+    public static func flush() -> Plano {
+        guard let plano = Analizador.memoria[0] else { return Plano(aviones: [], colisiones: Set<Colision>())}
         memoria.removeAll()
+        memoria[0] = plano
+        return plano
     }
         
 }
