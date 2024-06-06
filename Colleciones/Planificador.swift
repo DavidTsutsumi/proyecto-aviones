@@ -34,6 +34,10 @@ struct Planificador {
         numMovimientos = 0
         Analizador.flush()
         plano = Plano(aviones: Aeromexico.aviones, colisiones: Set<Colision>())
+        
+        //Agregue esto para que se reiniciaran los valores
+        numColisiones = 0
+        numMovimientos = 0
     }
 }
 

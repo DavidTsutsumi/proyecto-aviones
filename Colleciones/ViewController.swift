@@ -49,8 +49,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
         
         planificador.back()
-        movimientos.text = "Movimientos: \(planificador.plano.numMovimientos)"
-        //coaliciones.text = "Coaliciones: \(planificador.plano.numCoaliciones)"
+        movimientos.text = "Movimientos: \(planificador.numMovimientos)"
         actualizarCoaliciones()
         collection.reloadData()
     }
@@ -58,7 +57,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     @IBAction func tapNext(_ sender: Any) {
         
         planificador.next()
-        movimientos.text = "Movimientos: \(planificador.plano.numMovimientos)"
+        movimientos.text = "Movimientos: \(planificador.numMovimientos)"
         actualizarCoaliciones()
         collection.reloadData()
         
@@ -66,7 +65,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     @IBAction func tapReset(_ sender: Any) {
         planificador.reset()
-        movimientos.text = "Movimientos: \(planificador.plano.numMovimientos)"
+        movimientos.text = "Movimientos: \(planificador.numMovimientos)"
         actualizarCoaliciones()
         collection.reloadData()
     }
