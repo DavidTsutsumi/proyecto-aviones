@@ -25,7 +25,7 @@ struct Plano {
     
     
     // Funciones para calcular el máximo de columnas y filas
-    private func calcularMaxColumnas(aviones: [Avion]) -> Int {
+    public func calcularMaxColumnas(aviones: [Avion]) -> Int {
         var maxCol = -1
         for avion in aviones {
             if avion.x > maxCol {
@@ -35,7 +35,7 @@ struct Plano {
         return maxCol + 1
     }
     
-    private func calcularMaxFilas(aviones: [Avion]) -> Int {
+    public func calcularMaxFilas(aviones: [Avion]) -> Int {
         var maxFil = -1
         for avion in aviones {
             if avion.y > maxFil {
