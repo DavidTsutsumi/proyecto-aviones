@@ -38,11 +38,11 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return columnas
+        return planificador.gridSize
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return filas
+        return planificador.gridSize
     }
     
     //Variable que contabiliza los movimientos

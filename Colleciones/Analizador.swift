@@ -8,8 +8,7 @@ class Analizador {
     public static func initialize(aviones: [Avion]) -> Plano {
         let plano = Plano(aviones: aviones, colisiones: Set<Colision>())
         memoria[0] = plano
-        return plano
-        
+        return plano    
     }
     
     //Método para avanzar al siguiente movimiento y actualizar la posición de los aviones.
@@ -41,7 +40,19 @@ class Analizador {
                 //Agrega el avión actualizado a la lista temporal.
                 temporal.append(av)
             }
+            
             let colisiones = calcularCoaliciones(aviones: temporal)
+
+            for colision in colisiones {
+                temporal.removeAll { avion in
+                    avion.x == colision.x && avion.y == colision.y
+                }
+            }
+            
+            for avion in temporal {
+               
+            }
+            
             let plano = Plano(aviones: temporal, colisiones: colisiones)
             //Almacena el nuevo estado de los aviones en memoria.
             Analizador.memoria[numPaso] = plano

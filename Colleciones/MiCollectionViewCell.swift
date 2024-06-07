@@ -5,8 +5,8 @@ class MiCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var imagen: UIImageView!
     
     func style(){
-        layer.borderColor = UIColor.black.cgColor
-        layer.borderWidth = 2.0
+        layer.borderColor = UIColor.blue.withAlphaComponent(0.5).cgColor
+        layer.borderWidth = 1.0
     }
     
     
