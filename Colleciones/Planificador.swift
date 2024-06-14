@@ -28,7 +28,7 @@ struct Planificador {
     //Método que avanza el estado del plano al siguiente movimiento.
     mutating func next() {
         
-        //Actualiza el estado del plano al siguiente movimiento
+        guard numMovimientos < gridSize - 2 else { return }
         numMovimientos += 1
         plano = plano.next(numMovimientos: numMovimientos)
         colisiones[numMovimientos] = plano.numColisiones
@@ -37,7 +37,6 @@ struct Planificador {
     //Método que retrocede el estado del plano al movimiento anterior.
     mutating func back() {
         
-        //Habia puesto una condición que si la posición es igual a 1 haga un reset
         guard numMovimientos > 0 else { return }
         colisiones[numMovimientos] = 0
         numMovimientos -= 1

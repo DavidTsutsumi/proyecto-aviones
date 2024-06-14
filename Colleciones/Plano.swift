@@ -7,7 +7,6 @@ struct Plano {
     let avionesOriginales: [Avion] //Lista de aviones original en el plano.
     var aviones: [Avion]  //Lista de aviones actual en el plano.
     var colisiones: Set<Colision>  //Lista de aviones actual en el plano.
-
     var maxColumnas: Int //Número máximo de columnas en el plano.
     var maxFilas: Int //Número máximo de filas en el plano.
     
